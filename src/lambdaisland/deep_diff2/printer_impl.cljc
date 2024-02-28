@@ -89,14 +89,18 @@
             'lambdaisland.deep-diff2.diff-impl/Mismatch
             print-mismatch
 
-            'cljs.core/PersistentArrayMap
+            ;; To survive advanced compilation, we cannot rely on
+            ;; hardcoded symbols of names. Instead, we create an
+            ;; instance of type in question and then create a symbol
+            ;; of its type
+            (symbol (pr-str (type {:foo :bar})))
             map-handler
 
-            'cljs.core/PersistentHashMap
-            map-handler
+            (symbol (pr-str (type (first {:foo :bar}))))
+            map-entry-handler
 
-            'cljs.core/MapEntry
-            map-entry-handler})))
+            (symbol (pr-str (type  (into {} (map #(-> [% %]) (range 10))))))
+            map-handler})))
 
 (defn type-name
   "Get the type of the given object as a string. For Clojure, gets the name of
@@ -108,11 +112,7 @@
      :clj
      (symbol (.getName (class x)))
      :cljs
-     (let [t (type x)
-           n (.-name t)]
-       (if (empty? n)
-         (symbol (pr-str t))
-         (symbol n)))))
+     (symbol (pr-str (type x)))))
 
 (defn- print-handler-resolver [extra-handlers]
   (fn [obj]
