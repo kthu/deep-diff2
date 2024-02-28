@@ -80,7 +80,11 @@
             map-entry-handler}
 
            :cljs
-           {(symbol (pr-str (type (lambdaisland.deep-diff2.diff-impl/->Deletion nil))))
+           {;; To survive advanced compilation, we cannot rely on
+            ;; hardcoded symbols of names. Instead, we create an
+            ;; instance of the type in question and then create a
+            ;; symbol of its runtime type.
+            (symbol (pr-str (type (lambdaisland.deep-diff2.diff-impl/->Deletion nil))))
             print-deletion
 
             (symbol (pr-str (type (lambdaisland.deep-diff2.diff-impl/->Insertion nil))))
@@ -89,10 +93,6 @@
             (symbol (pr-str (type (lambdaisland.deep-diff2.diff-impl/->Mismatch nil nil))))
             print-mismatch
 
-            ;; To survive advanced compilation, we cannot rely on
-            ;; hardcoded symbols of names. Instead, we create an
-            ;; instance of type in question and then create a symbol
-            ;; of its type
             (symbol (pr-str (type {:foo :bar})))
             map-handler
 
