@@ -80,13 +80,13 @@
             map-entry-handler}
 
            :cljs
-           {'lambdaisland.deep-diff2.diff-impl/Deletion
+           {(symbol (pr-str (type (lambdaisland.deep-diff2.diff-impl/->Deletion nil))))
             print-deletion
 
-            'lambdaisland.deep-diff2.diff-impl/Insertion
+            (symbol (pr-str (type (lambdaisland.deep-diff2.diff-impl/->Insertion nil))))
             print-insertion
 
-            'lambdaisland.deep-diff2.diff-impl/Mismatch
+            (symbol (pr-str (type (lambdaisland.deep-diff2.diff-impl/->Mismatch nil nil))))
             print-mismatch
 
             ;; To survive advanced compilation, we cannot rely on
